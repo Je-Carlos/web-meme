@@ -21,6 +21,22 @@ type RouteContext = {
 export async function GET(_: Request, context: RouteContext) {
   try {
     const { slug } = await Promise.resolve(context.params);
+
+    if (slug === "exemplo") {
+      return NextResponse.json(
+        {
+          slug: "exemplo",
+          topText: "feliz",
+          bottomText: "aniversário",
+          expiresAt: new Date(Date.now() + 1000 * 60 * 60 * 24 * 365).toISOString(),
+          isExpired: false,
+          imageUrl:
+            "https://images.unsplash.com/photo-1543852786-1cf6624b9987?q=80&w=600&auto=format&fit=crop",
+        },
+        { status: 200 },
+      );
+    }
+
     const supabaseAdmin = getSupabaseAdmin();
 
     const { data, error } = await supabaseAdmin

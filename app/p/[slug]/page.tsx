@@ -141,7 +141,13 @@ export default function GiftSlugPage() {
       </div>
 
       {boxState === "open" ? (
-        <div className="flex flex-wrap justify-center gap-3">
+        <div className="flex flex-wrap justify-center gap-3 mt-4">
+          <Link
+            href="/"
+            className="focusable rounded-full border-2 border-black/20 bg-white px-5 py-2.5 font-bold"
+          >
+            Menu inicial
+          </Link>
           <button
             aria-label="Abrir presente de novo"
             type="button"
