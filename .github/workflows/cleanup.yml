@@ -1,0 +1,28 @@
+name: Cleanup Expired Gifts
+
+on:
+  schedule:
+    - cron: '0 6 * * *' # Roda as 06h00 (UTC) diariamente
+  workflow_dispatch: # Permite disparo manual
+
+jobs:
+  run-cleanup:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Execute Cleanup Script
+        env:
+          SUPABASE_URL: ${{ secrets.SUPABASE_URL }}
+          SUPABASE_SERVICE_ROLE_KEY: ${{ secrets.SUPABASE_SERVICE_ROLE_KEY }}
+          BUCKET_NAME: ${{ vars.BUCKET_NAME || 'gifts' }}
+        run: npx tsx scripts/cleanup.ts
