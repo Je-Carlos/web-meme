@@ -1,4 +1,5 @@
 import Link from "next/link";
+import { HomePreview } from "@/components/HomePreview";
 
 export default function Home() {
   return (
@@ -28,15 +29,8 @@ export default function Home() {
             </Link>
           </div>
         </div>
-        <div className="card-soft flex min-h-[260px] items-center justify-center bg-gradient-to-br from-amber-200 via-orange-200 to-rose-200 p-6">
-          <div className="w-full max-w-xs rounded-2xl bg-white/80 p-5 shadow-xl backdrop-blur">
-            <p className="text-sm font-bold uppercase tracking-wide text-black/65">
-              Preview do efeito
-            </p>
-            <p className="mt-2 text-5xl leading-none">nos</p>
-            <p className="mt-3 text-sm text-black/70">Clique para abrir</p>
-            <div className="mt-5 h-3 rounded-full bg-gradient-to-r from-orange-500 to-rose-500" />
-          </div>
+        <div className="card-soft flex min-h-[260px] items-center justify-center bg-gradient-to-br from-amber-200 via-orange-200 to-rose-200 p-6 overflow-hidden">
+          <HomePreview />
         </div>
       </section>
     </main>

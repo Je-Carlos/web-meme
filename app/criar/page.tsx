@@ -1,10 +1,11 @@
 "use client";
 
-import { ChangeEvent, FormEvent, useEffect, useMemo, useState } from "react";
+import { ChangeEvent, FormEvent, useMemo, useState } from "react";
+import Link from "next/link";
 import { useRouter } from "next/navigation";
-import Image from "next/image";
 import { createGift, uploadToSignedUrl } from "@/lib/gift-api";
 import { useGiftStore } from "@/lib/store";
+import { TextOverlay } from "@/components/TextOverlay";
 
 const MAX_BYTES = 5 * 1024 * 1024;
 const VALID_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"];
@@ -97,8 +98,16 @@ export default function CriarPage() {
   };
 
   return (
-    <main className="app-shell mx-auto flex w-full max-w-5xl items-center justify-center">
+    <main className="app-shell mx-auto flex w-full max-w-5xl items-center justify-center py-8">
       <section className="card-soft w-full max-w-2xl p-6 md:p-8">
+        <div className="mb-4">
+          <Link
+            href="/"
+            className="inline-flex items-center gap-2 text-sm font-bold text-black/60 transition hover:text-black"
+          >
+            ← Voltar ao menu inicial
+          </Link>
+        </div>
         <h1 className="text-5xl leading-none md:text-6xl">Criar presente</h1>
         <p className="mt-2 text-black/70">
           Escolha a imagem, ajuste os textos e gere o link para abrir a caixa.
@@ -118,15 +127,13 @@ export default function CriarPage() {
 
           <div className="overflow-hidden rounded-2xl border-2 border-dashed border-black/20 bg-white/70 p-3">
             {previewUrl ? (
-              <div className="relative h-64 w-full overflow-hidden rounded-xl">
-                <Image
+              <div className="relative w-full max-w-full overflow-hidden rounded-xl bg-black/5 flex items-center justify-center">
+                <img
                   src={previewUrl}
                   alt="Preview do meme"
-                  fill
-                  unoptimized
-                  sizes="(max-width: 768px) 100vw, 672px"
-                  className="object-cover"
+                  className="w-full h-auto max-h-[60vh] object-contain rounded-xl"
                 />
+                <TextOverlay topText={topText} bottomText={bottomText} />
               </div>
             ) : (
               <div className="flex h-64 items-center justify-center rounded-xl bg-gradient-to-br from-orange-100 to-amber-100 text-sm font-semibold text-black/60">

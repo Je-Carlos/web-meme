@@ -6,7 +6,7 @@ type GiftBoxState = "closed" | "opening" | "open";
 
 type GiftBoxProps = {
   state: GiftBoxState;
-  onOpen: () => void;
+  onOpen: (e: React.MouseEvent<HTMLButtonElement>) => void;
 };
 
 export function GiftBox({ state, onOpen }: GiftBoxProps) {

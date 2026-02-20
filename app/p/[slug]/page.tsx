@@ -7,7 +7,7 @@ import Image from "next/image";
 import { motion } from "framer-motion";
 import { GiftBox } from "@/components/GiftBox";
 import { TextOverlay } from "@/components/TextOverlay";
-import { fireConfetti } from "@/lib/confetti";
+import { fireConfetti, fireFallingConfetti } from "@/lib/confetti";
 import { getGift } from "@/lib/gift-api";
 import { useGiftStore } from "@/lib/store";
 
@@ -47,10 +47,17 @@ export default function GiftSlugPage() {
     [boxState, fallback, loading],
   );
 
-  const handleOpen = () => {
+  const handleOpen = (e: React.MouseEvent<HTMLButtonElement>) => {
     if (!canOpen) return;
+    const rect = e.currentTarget.getBoundingClientRect();
+    const x = (rect.left + rect.width / 2) / window.innerWidth;
+    const y = (rect.top + rect.height / 2) / window.innerHeight;
+
     setBoxState("opening");
-    window.setTimeout(() => fireConfetti(), 420);
+    window.setTimeout(() => {
+      fireConfetti({ x, y });
+      fireFallingConfetti(4000);
+    }, 420);
     window.setTimeout(() => setBoxState("open"), 780);
   };
 
