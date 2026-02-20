@@ -1,26 +1,52 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #fff8ea;
+  --foreground: #1f1f1f;
+  --card: #fffef9;
+  --accent: #ff6f3c;
+  --accent-strong: #dd4a00;
+  --ring: #1f1f1f;
+  --font-heading: "Impact", "Arial Black", "Bebas Neue", "Haettenschweiler", sans-serif;
+  --font-body: "Trebuchet MS", "Segoe UI", "Verdana", sans-serif;
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-sans: var(--font-body);
 }
 
 body {
-  background: var(--background);
+  min-height: 100vh;
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  font-family: var(--font-body), sans-serif;
+  background:
+    radial-gradient(circle at 15% 20%, #ffe2c4 0, transparent 35%),
+    radial-gradient(circle at 80% 10%, #ffd6c4 0, transparent 32%),
+    linear-gradient(180deg, #fff8ea 0%, #fff2dc 100%);
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--font-heading), sans-serif;
+  letter-spacing: 0.02em;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding: 1.25rem;
+}
+
+.card-soft {
+  background: color-mix(in oklab, var(--card) 88%, white 12%);
+  border: 2px solid color-mix(in oklab, var(--foreground) 10%, white 90%);
+  box-shadow: 0 20px 45px rgba(48, 25, 10, 0.12);
+  border-radius: 1.5rem;
+}
+
+.focusable:focus-visible {
+  outline: 3px solid var(--ring);
+  outline-offset: 2px;
 }
