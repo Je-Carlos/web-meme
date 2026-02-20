@@ -47,7 +47,7 @@ export async function uploadToSignedUrl(file: File, uploadUrl: string) {
     body: file,
   });
 
-  return { ok: response.ok as const };
+  return { ok: response.ok };
 }
 
 export async function getGift(slug: string): Promise<GiftData | null> {

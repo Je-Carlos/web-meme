@@ -41,7 +41,7 @@ export async function POST(request: Request) {
         top_text: topText,
         bottom_text: bottomText,
         expires_at: expiresAt.toISOString(),
-      });
+      } as never);
 
       if (!error) {
         slug = candidateSlug;

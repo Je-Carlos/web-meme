@@ -57,7 +57,7 @@ export async function GET(_: Request, context: RouteContext) {
 
     void supabaseAdmin
       .from("gifts")
-      .update({ views: (gift.views ?? 0) + 1 })
+      .update({ views: (gift.views ?? 0) + 1 } as never)
       .eq("id", gift.id);
 
     return NextResponse.json(

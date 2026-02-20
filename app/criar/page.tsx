@@ -7,11 +7,11 @@ import { createGift, uploadToSignedUrl } from "@/lib/gift-api";
 import { useGiftStore } from "@/lib/store";
 
 const MAX_BYTES = 5 * 1024 * 1024;
-const VALID_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
+const VALID_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp", "image/gif"];
 
 function validateImage(file: File) {
   if (!VALID_TYPES.includes(file.type)) {
-    return "Use apenas JPG, PNG ou WEBP.";
+    return "Use apenas JPG, PNG, WEBP ou GIF.";
   }
   if (file.size > MAX_BYTES) {
     return "Arquivo maior que 5MB.";
@@ -30,14 +30,6 @@ export default function CriarPage() {
   const [showContentWarning, setShowContentWarning] = useState(true);
   const [error, setError] = useState<string>("");
   const [loading, setLoading] = useState(false);
-
-  useEffect(() => {
-    return () => {
-      if (previewUrl) {
-        URL.revokeObjectURL(previewUrl);
-      }
-    };
-  }, [previewUrl]);
 
   const canSubmit = useMemo(
     () => Boolean(file && !loading && !error),

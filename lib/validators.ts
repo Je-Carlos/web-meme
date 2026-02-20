@@ -1,4 +1,4 @@
-const ALLOWED_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp"]);
+const ALLOWED_EXTENSIONS = new Set(["jpg", "jpeg", "png", "webp", "gif"]);
 
 export class ValidationError extends Error {
   constructor(message: string) {
