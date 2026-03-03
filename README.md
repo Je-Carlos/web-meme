@@ -1,36 +1,142 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+```
+████████╗  ██████╗██╗  ██╗  █████╗  ██████╗   ·~~·
+╚══██╔══╝ ██╔════╝██║  ██║ ██╔══██╗ ██╔══██╗  █████╗
+   ██║    ██║     ███████║ ███████║ ██████╔╝  ██╔══██╗
+   ██║    ██║     ██╔══██║ ██╔══██║ ██╔══██╗  ███████║
+   ██║    ╚██████╗██║  ██║ ██║  ██║ ██║  ██║  ██╔══██║
+   ╚═╝     ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═╝  ╚═╝  ╚═╝  ╚═╝  🎁
+```
 
-## Getting Started
+> Monte um presente com foto e frases estilo meme, gere um link e entregue com animação de caixa e confete.
 
-First, run the development server:
+---
+
+## ✨ Como funciona
+
+```
+  CRIADOR                              DESTINATÁRIO
+  ───────                              ────────────
+
+  1. Arrasta uma imagem          →     Recebe o link
+  2. Digita os textos meme       →     Clica na caixa 🎁
+  3. Clica em "Gerar link"       →     🎊 Confete + revelação
+  4. Compartilha via WhatsApp    →     Vê a imagem com os textos
+```
+
+---
+
+## 🔄 Máquina de estados
+
+```
+                   upload ok
+  editing  ──────────────────►  gift_ready
+     ▲      generating (spinner)      │
+     │                                │ clique na caixa
+     │                                ▼
+  [ Criar outro ]              opening (420ms)
+     │                                │
+     └──────────  gift_open  ◄────────┘
+                  (imagem + compartilhar)
+```
+
+---
+
+## 🛠️ Stack
+
+| Camada        | Tecnologia                        |
+|---------------|-----------------------------------|
+| Framework     | Next.js 16 (App Router)           |
+| UI            | React 19 + Tailwind CSS v4        |
+| Animações     | Framer Motion 12                  |
+| Estado        | Zustand 5                         |
+| Confete       | canvas-confetti                   |
+| Backend       | Supabase (Postgres + Storage)     |
+| Linguagem     | TypeScript 5 (strict)             |
+| CI / Limpeza  | GitHub Actions (cron diário)      |
+
+---
+
+## 📁 Estrutura
+
+```
+web-meme/
+├── app/
+│   ├── page.tsx                  # Dashboard (tela única)
+│   ├── criar/page.tsx            # Redirect → /
+│   ├── p/[slug]/page.tsx         # Revelação para o destinatário
+│   ├── api/gifts/
+│   │   ├── route.ts              # POST – cria presente
+│   │   └── [slug]/route.ts      # GET  – busca presente
+│   └── globals.css
+│
+├── components/
+│   ├── Dashboard.tsx             # Orquestrador + estado global
+│   ├── EditorPanel.tsx           # Painel de edição (esquerda)
+│   ├── PreviewPanel.tsx          # Preview / revelação (direita)
+│   ├── ImageDropZone.tsx         # Drag-and-drop de imagem
+│   ├── ShareActions.tsx          # WhatsApp + copiar link
+│   ├── GiftBox.tsx               # Caixa animada (Framer Motion)
+│   └── TextOverlay.tsx           # Textos meme sobre a imagem
+│
+├── lib/
+│   ├── store.ts                  # Zustand – cache local do presente
+│   ├── gift-api.ts               # Chamadas à API REST
+│   ├── confetti.ts               # Helpers de confete
+│   ├── validators.ts             # Sanitização e validação
+│   ├── config.ts                 # Constantes (TTL, bucket…)
+│   ├── ids.ts                    # Gerador de slugs únicos
+│   └── supabaseAdmin.ts          # Cliente Supabase (server-only)
+│
+├── scripts/
+│   └── cleanup.ts                # Remove presentes expirados
+│
+└── .github/workflows/
+    └── cleanup.yml               # Cron diário às 06h UTC
+```
+
+---
+
+## 🚀 Rodando localmente
+
+### 1. Clone e instale as dependências
+
+```bash
+git clone https://github.com/Je-Carlos/web-meme.git
+cd web-meme
+npm install
+```
+
+### 2. Configure as variáveis de ambiente
+
+Crie um arquivo `.env.local` na raiz do projeto:
+
+```env
+SUPABASE_URL=https://<seu-projeto>.supabase.co
+SUPABASE_ANON_KEY=<sua-anon-key>
+SUPABASE_SERVICE_ROLE_KEY=<sua-service-role-key>
+```
+
+### 3. Inicie o servidor de desenvolvimento
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Acesse **[http://localhost:3000](http://localhost:3000)**.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+---
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## ⚙️ GitHub Actions
 
-## Learn More
+O workflow `cleanup.yml` roda **diariamente às 06h00 UTC** e remove do banco e do storage todos os presentes com `expires_at` no passado.
 
-To learn more about Next.js, take a look at the following resources:
+```
+Secrets necessários:
+  SUPABASE_URL
+  SUPABASE_SERVICE_ROLE_KEY
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Variável opcional (padrão: "gifts"):
+  BUCKET_NAME
+```
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+---

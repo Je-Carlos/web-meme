@@ -10,7 +10,7 @@ export function ShareActions({ giftUrl }: ShareActionsProps) {
   const [copied, setCopied] = useState(false);
 
   const whatsappUrl = `https://wa.me/?text=${encodeURIComponent(
-    `Abra seu presente meme! ${giftUrl}`,
+    `Abre aí! 🎁 ${giftUrl}`,
   )}`;
 
   const handleCopy = async () => {

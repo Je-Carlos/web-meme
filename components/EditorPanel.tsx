@@ -52,7 +52,7 @@ export function EditorPanel({
 
   return (
     <aside className="card-soft sticky top-5 space-y-4 p-6 lg:max-h-[calc(100vh-2.5rem)] lg:overflow-y-auto">
-      <h1 className="text-4xl leading-none md:text-5xl">Presente Meme</h1>
+      <h1 className="text-4xl leading-none md:text-5xl">Tcharã 🎁</h1>
       <p className="text-sm text-black/60">
         Escolha a imagem, ajuste os textos e gere o link.
       </p>
