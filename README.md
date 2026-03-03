@@ -1,11 +1,10 @@
 ```
-██████╗ ██████╗ ███████╗███████╗███████╗███╗   ██╗████████╗███████╗
-██╔══██╗██╔══██╗██╔════╝██╔════╝██╔════╝████╗  ██║╚══██╔══╝██╔════╝
-██████╔╝██████╔╝█████╗  ███████╗█████╗  ██╔██╗ ██║   ██║   █████╗
-██╔═══╝ ██╔══██╗██╔══╝  ╚════██║██╔══╝  ██║╚██╗██║   ██║   ██╔══╝
-██║     ██║  ██║███████╗███████║███████╗██║ ╚████║   ██║   ███████╗
-╚═╝     ╚═╝  ╚═╝╚══════╝╚══════╝╚══════╝╚═╝  ╚═══╝   ╚═╝   ╚══════╝
-                                                    M E M E  🎁
+████████╗  ██████╗██╗  ██╗  █████╗  ██████╗   ·~~·
+╚══██╔══╝ ██╔════╝██║  ██║ ██╔══██╗ ██╔══██╗  █████╗
+   ██║    ██║     ███████║ ███████║ ██████╔╝  ██╔══██╗
+   ██║    ██║     ██╔══██║ ██╔══██║ ██╔══██╗  ███████║
+   ██║    ╚██████╗██║  ██║ ██║  ██║ ██║  ██║  ██╔══██║
+   ╚═╝     ╚═════╝╚═╝  ╚═╝╚═╝  ╚═╝ ╚═╝  ╚═╝  ╚═╝  ╚═╝  🎁
 ```
 
 > Monte um presente com foto e frases estilo meme, gere um link e entregue com animação de caixa e confete.
@@ -33,7 +32,7 @@ Desktop (≥ 1024px)
 ┌─────────────────────────┬──────────────────────────────────────┐
 │      EditorPanel        │           PreviewPanel               │
 │                         │                                      │
-│  🎁 Presente Meme       │   ┌──────────────────────────────┐   │
+│  🎁 Tcharã              │   ┌──────────────────────────────┐   │
 │                         │   │                              │   │
 │  [ Arraste uma imagem ] │   │    Preview ao vivo /         │   │
 │                         │   │    Spinner / GiftBox /       │   │
@@ -213,10 +212,10 @@ Variável opcional (padrão: "gifts"):
 
 ## 🌐 Rotas
 
-| Rota               | Tipo      | Descrição                              |
-|--------------------|-----------|----------------------------------------|
-| `/`                | Estática  | Dashboard de criação                   |
-| `/criar`           | Estática  | Redireciona para `/`                   |
-| `/p/[slug]`        | Dinâmica  | Revelação do presente para o destinatário |
-| `POST /api/gifts`  | API       | Cria um novo presente                  |
-| `GET /api/gifts/[slug]` | API  | Busca dados de um presente             |
+| Rota                    | Tipo      | Descrição                                    |
+|-------------------------|-----------|----------------------------------------------|
+| `/`                     | Estática  | Dashboard de criação                         |
+| `/criar`                | Estática  | Redireciona para `/`                         |
+| `/p/[slug]`             | Dinâmica  | Revelação do presente para o destinatário    |
+| `POST /api/gifts`       | API       | Cria um novo presente                        |
+| `GET /api/gifts/[slug]` | API       | Busca dados de um presente                   |
